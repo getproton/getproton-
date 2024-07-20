@@ -1,50 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-  <link rel="stylesheet" href="style.css">
-  <title>Proton</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proton</title>
+    <style>
+        :root {
+            --primary-color: #ffffff;
+            --secondary-color: #b3b3b3;
+            --background-color: #050510;
+            --accent-color: #0084ff;
+            --glow-color: rgba(255, 255, 255, 0.5);
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            color: var(--primary-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        header {
+            padding: 20px 0;
+            background: rgba(5, 5, 16, 0.8);
+            backdrop-filter: blur(20px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.8em;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            gap: 40px;
+        }
+        nav ul li a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 20px;
+
+        }
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+        .dashboard-btn {
+            background-color: var(--accent-color);
+            padding: 8px 20px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+        .dashboard-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px var(--glow-color);
+        }
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 150px 0 100px;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(65, 65, 218, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(74, 74, 248, 0.03) 0%, transparent 20%);
+            pointer-events: none;
+        }
+        .hero-content {
+            max-width: 700px;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-weight: 900;
+            background: linear-gradient(45deg, #0591ee, #0587f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(7, 121, 228, 0.3);
+        }
+        .subtitle {
+            font-size: 1.3em;
+            margin-bottom: 40px;
+            color: var(--secondary-color);
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+    .image {
+    width: 150px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 20px; /* Adjust spacing as needed */
+    border-radius: 4px;
+     }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 0 20px var(--glow-color);
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .cta-button:hover::before {
+            opacity: 1;
+        } 
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px var(--glow-color);
+        }
+        .cta-button.secondary {
+            background-color: transparent;
+            border: 2px solid var(--accent-color);
+        }
+        .feature-preview {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 30px;
+            width: 550px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(74, 74, 248, 0.2);
+        }
+        .feature-preview h3 {
+            margin-top: 0;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+        .feature-preview img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .orbital-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        .particle {
+            position: absolute;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: orbit 20s infinite linear;
+        }
+        @keyframes orbit {
+            from { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+            to   { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+        }
+    </style>
 </head>
 <body>
-  
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Proton</div>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#pricing">Features</a></li>
+                    <li><a href="#showcases">Showcases</a></li>
+                    
+                    <li><a href="https://discord.gg/VGqhtctC5b" class="dashboard-btn">Discord</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="hero-content">
+                    <h1>Revolutionize your Roblox Experience!</h1>
+                    <p class="subtitle">Step into a new era of Roblox exploiting with Proton. Featuring a sleek and intuitive user interface, Proton offers script developers a seamless experience. Masterfully crafted for ease of use, Proton empowers script developers to unlock the full potential of Roblox with its powerful functionality. Join the Beta now! Did I mention its keyless?</p>
+                    <div class="cta-buttons">
+                        <a href="#discover" class="cta-button">Get Proton</a>
+                        
+                    </div>
+                </div>
+                <div class="image">
+                    <img src="images/ProtonA.png" alt="">
 
-
-  <nav>
-    <div class="nav-logo">
-      <a href="#">
-          <img src="logo.png">
-      </a>
-    </div>
-
-    <ul class="nav-links">
-      <li class="link"><a href="#">Home</a></li>
-      <li class="link"><a href="#">Features</a></li>
-      <li class="link"><a href="#">About</a></li>
-      <li class="link"><a href="#">FAQ</a></li>
-    </ul>
-
-    <a href="https://discord.gg/PrUCWZYynG"><button class="btn">Discord</button></a> 
-  </nav>
-
-  <header class="container">
-    <div class="content">
-      <span class="blur"></span>
-      <span class="blur"></span>
-      <H1>JOIN <span>THE</span> BETA!</H1>
-      <p>
-        Step into a new era of Roblox exploiting with Proton. Featuring a sleek and intuitive user interface, Proton offers script developers a seamless experience. Masterfully crafted for ease of use, Proton empowers script developers to unlock the full potential of Roblox with its powerful functionality. Join the Beta now! Did I mention its keyless? 
-      </p>
-        <button class="btn"> Download</button>  <a href="https://discord.gg/PrUCWZYynG"><button class="btn">Discord</button></a>     
-    </div>
-    <div class="image">
-      <img src="image.png
-        " alt="">
-    </div>
-  </header>
-
-      
-  <script src="script.js"></script>
-</body>  
-                                                   
-</html>                        
+                   
+            </div>
+            <div class="orbital-particles">
+                <div class="particle" style="top: 20%; left: 10%; width: 4px; height: 4px;"></div>
+                <div class="particle" style="top: 60%; right: 15%; width: 6px; height: 6px;"></div>
+                <div class="particle" style="bottom: 30%; left: 20%; width: 5px; height: 5px;"></div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
