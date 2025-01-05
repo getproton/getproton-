@@ -3,449 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <title>Proton</title>
+    <title>Stellar Executor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --gradient-1: linear-gradient(135deg, #00c6ff, #0072ff);
-            --gradient-2: linear-gradient(135deg, #0072ff, #00c6ff);
-            --primary-color: #0072ff;
-            --secondary-color: #e0e0e0;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            min-height: 100vh;
-            background: #0f0f13;
+            font-family: 'Roboto', sans-serif;
+            background: #000;
             color: #fff;
             overflow-x: hidden;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 2;
-        }
-
         header {
-            padding: 20px 0;
-            position: relative;
-            z-index: 3;
-            backdrop-filter: blur(10px);
-            background: rgba(15, 15, 19, 0.8);
-        }
-
-        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 20px 40px;
         }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-            align-items: center;
+        header .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
         }
 
-        nav ul li a {
-            color: var(--secondary-color);
+        header nav a {
+            margin-left: 20px;
             text-decoration: none;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            color: var(--primary-color);
-            text-shadow: 0 0 20px rgba(0, 114, 255, 0.5);
-        }
-
-        .dashboard-btn {
-            background: var(--gradient-1);
-            padding: 12px 24px;
-            border-radius: 30px;
-            color: #fff !important;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .dashboard-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .dashboard-btn:hover::before {
-            left: 100%;
-        }
-
-        .dashboard-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 114, 255, 0.3);
-        }
-
-        .hero {
-            padding: 100px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            max-width: 600px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.2;
-            font-weight: 700;
-            letter-spacing: -1px;
-        }
-
-        .subtitle {
-            color: var(--secondary-color);
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 2.5rem;
+            color: #fff;
             font-weight: 400;
         }
 
-        .cta-buttons {
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(120deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)), url('background-image.jpg') no-repeat center/cover;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .hero h1 span {
+            color: #F5C842;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .hero .buttons {
             display: flex;
             gap: 20px;
         }
 
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--gradient-1);
-            color: #fff;
+        .hero .buttons a {
+            padding: 10px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #000;
+            background: #F5C842;
             text-decoration: none;
-            padding: 15px 35px;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            border-radius: 5px;
+            transition: background 0.3s;
         }
 
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
+        .hero .buttons a:hover {
+            background: #e0b534;
         }
 
-        .cta-button:hover::before {
-            left: 100%;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(0, 114, 255, 0.4);
+        .features-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #fff;
+            margin: 40px 0 20px;
         }
 
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            padding: 50px 0;
-            position: relative;
-            z-index: 2;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            padding: 40px;
         }
 
-        .box {
-            background: rgba(20, 20, 26, 0.8);
-            padding: 2.5rem;
-            border-radius: 24px;
-            position: relative;
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transform-style: preserve-3d;
-            perspective: 1000px;
-        }
-        
-        .box:hover {
-            transform: perspective(1000px) translateZ(50px) translateY(-10px) rotateX(10deg);
-            box-shadow: 0 30px 50px rgba(0, 114, 255, 0.2);
+        .feature-card {
+            background: #1e1e1e;
+            padding: 60px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
         }
 
-        .box span {
-            display: inline-block;
-            background: var(--gradient-2);
-            padding: 25px;
-            margin-bottom: 1.5rem;
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .feature-card h3 {
+            color: #F5C842;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 1.2rem;
+            color: #ccc;
+        }
+
+        .raw-image {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .raw-image img {
+            max-width: 90%;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .videos {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .videos a {
+            color: #F5C842;
+            text-decoration: none;
+            font-size: 1.2rem;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .faq {
+            margin: 40px;
+        }
+
+        .faq h2 {
             font-size: 2rem;
             color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 114, 255, 0.2);
-            transition: all 0.5s ease;
-            transform-style: preserve-3d;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
-        .box:hover span {
-            transform: translateZ(30px);
-            box-shadow: 0 15px 35px rgba(0, 114, 255, 0.3);
+        .faq-item {
+            margin-bottom: 20px;
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
         }
 
-        .box h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-            transform-style: preserve-3d;
-            transition: transform 0.5s ease;
+        .faq-item h3 {
+            font-size: 1.5rem;
+            color: #F5C842;
         }
 
-        .box:hover h2 {
-            transform: translateZ(20px);
+        .faq-item p {
+            font-size: 1.2rem;
+            color: #ccc;
+            display: none;
+            margin-top: 10px;
         }
 
-        .box p {
-            color: var(--secondary-color);
-            font-size: 1rem;
-            line-height: 1.8;
-            font-weight: 400;
-            transform-style: preserve-3d;
-            transition: transform 0.5s ease;
+        .faq-item.active p {
+            display: block;
         }
 
-        .box:hover p {
-            transform: translateZ(15px);
-        }
-
-        .logo {
-            font-size: 2em;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(0, 114, 255, 0.5);
-            position: relative;
-            z-index: 3;
-        }
-
-        .logo i {
-            font-size: 1.2em;
-            transition: transform 3s ease;
-            position: relative;
-            z-index: 3;
-            display: inline-block;
-            transform-style: preserve-3d;
-        }
-
-        .logo:hover i {
-            transform: translateZ(20px);
-        }
-
-        .image {
-            position: relative;
-            width: auto;
-            height: auto;
-            margin-right: 20px;
-            border-radius: 20px;
-            box-shadow: 0 0 50px rgba(0, 114, 255, 0.3);
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            transform-style: preserve-3d;
-            overflow: hidden;
-            z-index: 200;
-        }
-
-        .image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 20px;
-        }
-
-        .image:hover {
-            transform: perspective(1000px) rotateY(-15deg);
-            box-shadow: 30px 30px 60px rgba(0, 114, 255, 0.4);
-        }
-
-        .image::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                135deg,
-                rgba(0, 114, 255, 0.2),
-                transparent 80%
-            );
-            border-radius: 20px;
-            transition: opacity 0.3s ease;
-            opacity: 0;
-        }
-
-        .image:hover::after {
-            opacity: 1;
-        }
-
-        .orbital-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .particle {
-            position: absolute;
-            background: var(--gradient-1);
-            border-radius: 12px;
-            animation: float 15s infinite ease-in-out;
-            opacity: 0.5;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translate(0, 0) rotate(0deg);
-                opacity: 0.5;
-            }
-            25% {
-                transform: translate(100px, -100px) rotate(90deg);
-                opacity: 0.8;
-            }
-            50% {
-                transform: translate(200px, 0) rotate(180deg);
-                opacity: 0.5;
-            }
-            75% {
-                transform: translate(100px, 100px) rotate(270deg);
-                opacity: 0.8;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .container {
-                padding: 0 15px;
-            }
-            
-            nav ul {
-                display: none;
-            }
-            
-            .features {
-                grid-template-columns: 1fr;
-            }
-            
-            .image {
-                display: none;
-            }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #111;
+            color: #ccc;
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="container">
-            <nav>
-                <div class="logo" style="font-size: 1.5rem; font-weight: bold; color: var(--gradient-1);">
-                    <i class="ri-download"></i>
-                    Proton
-                </div>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#showcases">Showcases</a></li>
-                    <li><a href="https://discord.gg/NS9dJ76wrW" class="dashboard-btn">
-                        <i class="fab fa-discord"></i> Discord
-                    </a></li>
-                </ul>
-            </nav>
-        </div>
+        <div class="logo">Stellar</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="https://discord.gg/XCpMgyA4R3">Discord</a>
+        </nav>
     </header>
-    <main>
-        <section class="hero">
-            <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
-                <div class="hero-content">
-                    <h1>Revolutionize Your Roblox Experience!</h1>
-                    <p class="subtitle">Discover Proton - a powerful Level 3 Roblox executor with an impressive 81% stability rate. Featuring both Auto-Inject and Manual-Inject capabilities, along with an extensive ScriptHub powered by ScriptBlox. Experience seamless script execution and unlock endless possibilities with our feature-rich platform - all completely free, no key system required!</p>
-                    <div class="cta-buttons">
-                        <a href="https://tinyurl.com/getproton" class="cta-button">
-                            <i class="fas fa-download"></i> Get Proton
-                        </a>
-                    </div>
-                </div>
-                <div class="image">
-                    <img src="https://raw.githubusercontent.com/ProtonSoftworksLLC/Proton/refs/heads/main/images/ProtonExec.png" alt="Proton Interface" style="object-fit: contain;">
-                </div>
-            </div>
-        </section>
 
-        <section class="container">
-            <div class="features">
-                <div class="box">
-                    <span><i class="fas fa-paint-brush"></i></span>
-                    <h2>Elegant Interface</h2>
-                    <p>Experience our meticulously crafted UI designed for both beginners and experts. Navigate effortlessly through features while enjoying a modern, responsive interface that enhances your exploiting experience.</p>
-                </div>
-
-                <div class="box">
-                    <span><i class="fas fa-rocket"></i></span>
-                    <h2>Powerful Execution</h2>
-                    <p>Level 3 execution capabilities with 81% stability rate. Enjoy both Auto-Inject and Manual-Inject features, plus access to a vast ScriptHub powered by ScriptBlox for unlimited scripting possibilities.</p>
-                </div>
-
-                <div class="box">
-                    <span><i class="fas fa-infinity"></i></span>
-                    <h2>Always Free</h2>
-                    <p>Access all of Proton's powerful features completely free. No hidden costs, no key system - just pure, unrestricted power at your fingertips. Join our community today and experience the difference.</p>
-                </div>
-            </div>
-        </section>
-
-        <div class="orbital-particles">
-            <div class="particle" style="top: 20%; left: 10%; width: 8px; height: 8px;"></div>
-            <div class="particle" style="top: 60%; right: 15%; width: 12px; height: 12px;"></div>
-            <div class="particle" style="bottom: 30%; left: 20%; width: 10px; height: 10px;"></div>
+    <section class="hero">
+        <h1>Experience only the best with <span>Stellar.</span></h1>
+        <p>Dominate the Roblox exploiting market with our leading execution platform, featuring cutting-edge tools and a seamless user experience tailored for maximum efficiency.</p>
+        <div class="buttons">
+            <a href="https://github.com/getproton/NovaX-V4/raw/refs/heads/main/StellarBootstrapper.exe">Download</a>
         </div>
-    </main>
+        <div class="raw-image">
+            <img src="https://github.com/getproton/NovaX-V4/blob/main/GithubIMG.png?raw=true" alt="Stellar Preview">
+        </div>
+    </section>
+
+    <h2 class="features-title">Features</h2>
+    <section class="features">
+        <div class="feature-card">
+            <h3>100 UNC and sUNC Functions</h3>
+            <p>Experience unparalleled script execution with 100 unique and optimized functions.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Sleek and Smooth UI</h3>
+            <p>Navigate with ease using a modern, intuitive interface designed for efficiency.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Keyless & Always Free</h3>
+            <p>No keys, no hassle. Stellar is completely free for everyone, always.</p>
+        </div>
+    </section>
+
+    <div class="videos">
+        <a href="https://www.youtube.com/watch?v=_KQpajM7k0Q&t=42s">Showcase by Soggy</a>
+        <a href="https://www.youtube.com/watch?v=0djPbeSKoCA&t=22s">Showcase by binninwl</a>
+        <a href="https://www.youtube.com/watch?v=YyecLLhQ7uM&t=5s">Showcase by Roblox exploiter 5</a>
+    </div>
+
+    <section class="faq">
+        <h2>FAQ</h2>
+        <div class="faq-item">
+            <h3>Does Stellar have a good script support?</h3>
+            <p>Absolutely, with Stellar's 100 UNC capability, there's no doubt about making scripts.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Is Stellar really free?</h3>
+            <p>Yes, Stellar is completely free and always will be.</p>
+        </div>
+        <div class="faq-item">
+            <h3>How do I download Stellar?</h3>
+            <p>You can download Stellar by running the bootstrapper which you can obtain from this site.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Is Stellar safe to use?</h3>
+            <p>Absolutely. Just remember to use an alt account as you can get banned on your main, potentially resulting in a loss of money.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Is Stellar a virus or a RAT?</h3>
+            <p>No, it's been proven and debunked in the Discord server.</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        &copy; 2025 Stellar. All rights reserved.
+    </footer>
+
+    <script>
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+    </script>
 </body>
 </html>
