@@ -1,5 +1,3 @@
-
-<!-- //  fine. but ill revert it muhehehehe (:< -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,46 +10,15 @@
     <style>
         :root {
             --gradient-1: linear-gradient(135deg, #0066ff, #9c41f3);
-            --gradient-2: linear-gradient(135deg, #6200ff, #9c41f3);
-            --primary-color: #9c41f3;
+            --gradient-2: linear-gradient(135deg, #9c41f3, #6200ff);
+            --primary-blue: #0066ff;
+            --primary-purple: #9c41f3;
             --secondary-color: #e0e0e0;
+            --glow-blue: rgba(0, 102, 255, 0.5);
+            --glow-purple: rgba(156, 65, 243, 0.5);
+            --deep-blue: #001a33;
+            --deep-purple: #1a0033;
         }
-
-        header {
-    background: #222; /* Example background color */
-    padding: 20px 0;
-}
-
-.container {
-    width: 90%;
-    margin: 0 auto;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--gradient-1);
-}
-
-.header-image {
-    width: 40px; /* Adjust size as needed */
-    height: auto;
-    margin-right: 10px; /* Space between image and text */
-}
-
-.logo-text {
-    color: var(--gradient-1); /* Customize text color if needed */
-}
-
 
         * {
             margin: 0;
@@ -65,6 +32,7 @@ nav {
             background: #0f0f13;
             color: #fff;
             overflow-x: hidden;
+            perspective: 1000px;
         }
 
         .container {
@@ -77,10 +45,20 @@ nav {
 
         header {
             padding: 20px 0;
-            position: relative;
-            z-index: 3;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
             backdrop-filter: blur(10px);
             background: rgba(15, 15, 19, 0.8);
+            border-bottom: 1px solid rgba(156, 65, 243, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(10, 5, 19, 0.95);
+            box-shadow: 0 10px 30px rgba(156, 65, 243, 0.2);
+            padding: 15px 0;
         }
 
         nav {
@@ -102,11 +80,26 @@ nav {
             font-size: 1rem;
             font-weight: 500;
             transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: width 0.3s ease;
         }
 
         nav ul li a:hover {
-            color: var(--primary-color);
-            text-shadow: 0 0 20px rgba(0, 114, 255, 0.5);
+            color: #fff;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
         }
 
         .dashboard-btn {
@@ -121,6 +114,7 @@ nav {
             gap: 8px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 0 15px var(--glow-blue);
         }
 
         .dashboard-btn::before {
@@ -130,7 +124,7 @@ nav {
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: 0.5s;
         }
 
@@ -140,13 +134,16 @@ nav {
 
         .dashboard-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 114, 255, 0.3);
+            box-shadow: 0 10px 30px var(--glow-purple);
         }
 
         .hero {
-            padding: 100px 0;
+            padding: 200px 0 100px;
             position: relative;
             overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
         }
 
         .hero-content {
@@ -164,6 +161,7 @@ nav {
             line-height: 1.2;
             font-weight: 700;
             letter-spacing: -1px;
+            text-shadow: 0 0 20px var(--glow-purple);
         }
 
         .subtitle {
@@ -190,9 +188,11 @@ nav {
             border-radius: 30px;
             font-size: 1.1rem;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: all 0.5s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 0 20px var(--glow-blue);
+            transform-style: preserve-3d;
         }
 
         .cta-button::before {
@@ -202,7 +202,7 @@ nav {
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: 0.5s;
         }
 
@@ -211,34 +211,55 @@ nav {
         }
 
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(0, 114, 255, 0.4);
+            transform: translateY(-5px) translateZ(20px);
+            box-shadow: 0 15px 40px var(--glow-purple);
         }
 
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            padding: 50px 0;
+            padding: 100px 0;
             position: relative;
             z-index: 2;
         }
 
         .box {
-            background: rgba(20, 20, 26, 0.8);
+            background: rgba(20, 20, 26, 0.6);
             padding: 2.5rem;
             border-radius: 24px;
             position: relative;
             transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(156, 65, 243, 0.2);
             transform-style: preserve-3d;
             perspective: 1000px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transform: perspective(1000px) rotateY(0) rotateX(0) translateZ(0);
+        }
+        
+        .box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(156, 65, 243, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
         
         .box:hover {
-            transform: perspective(1000px) translateZ(50px) translateY(-10px) rotateX(10deg);
-            box-shadow: 0 30px 50px rgba(0, 114, 255, 0.2);
+            transform: translateY(-10px);
+            box-shadow: 0 30px 50px rgba(156, 65, 243, 0.3);
+            background: rgba(20, 20, 26, 0.8);
+            border: 1px solid rgba(156, 65, 243, 0.4);
+        }
+        
+        .box:hover::before {
+            opacity: 1;
         }
 
         .box span {
@@ -249,14 +270,14 @@ nav {
             font-size: 2rem;
             color: #fff;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 114, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(156, 65, 243, 0.3);
             transition: all 0.5s ease;
             transform-style: preserve-3d;
         }
 
         .box:hover span {
             transform: translateZ(30px);
-            box-shadow: 0 15px 35px rgba(0, 114, 255, 0.3);
+            box-shadow: 0 15px 40px rgba(156, 65, 243, 0.4);
         }
 
         .box h2 {
@@ -296,7 +317,7 @@ nav {
             background: var(--gradient-1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(0, 114, 255, 0.5);
+            text-shadow: 0 0 20px var(--glow-purple);
             position: relative;
             z-index: 3;
         }
@@ -314,29 +335,35 @@ nav {
             transform: translateZ(20px);
         }
 
-        .image {
+        .image-container {
             position: relative;
-            width: auto;
-            height: auto;
-            margin-right: 20px;
+            width: 500px;
+            height: 400px;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+        }
+
+        .image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
             border-radius: 20px;
-            box-shadow: 0 0 50px rgba(0, 114, 255, 0.3);
+            box-shadow: 0 0 50px rgba(156, 65, 243, 0.4);
             transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             transform-style: preserve-3d;
             overflow: hidden;
             z-index: 200;
+            background: var(--deep-purple);
+            border: 2px solid rgba(156, 65, 243, 0.3);
+            transform: rotateY(0) rotateX(0) translateZ(0);
         }
 
         .image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             border-radius: 20px;
-        }
-
-        .image:hover {
-            transform: perspective(1000px) rotateY(-15deg);
-            box-shadow: 30px 30px 60px rgba(0, 114, 255, 0.4);
+            transform-style: preserve-3d;
         }
 
         .image::after {
@@ -348,7 +375,7 @@ nav {
             height: 100%;
             background: linear-gradient(
                 135deg,
-                rgba(0, 114, 255, 0.2),
+                rgba(156, 65, 243, 0.3),
                 transparent 80%
             );
             border-radius: 20px;
@@ -373,9 +400,11 @@ nav {
         .particle {
             position: absolute;
             background: var(--gradient-1);
-            border-radius: 12px;
+            border-radius: 50%;
             animation: float 15s infinite ease-in-out;
             opacity: 0.5;
+            filter: blur(1px);
+            box-shadow: 0 0 10px var(--primary-purple);
         }
 
         @keyframes float {
@@ -412,47 +441,243 @@ nav {
             
             .features {
                 grid-template-columns: 1fr;
+                padding: 50px 0;
             }
             
-            .image {
+            .image-container {
                 display: none;
+            }
+            
+            .hero {
+                padding: 150px 0 50px;
+                min-height: auto;
             }
         }
 
         .footer {
-            padding: 20px;
+            padding: 30px;
             text-align: center;
-            background: rgba(18, 18, 18, 0.8);
+            background: rgba(10, 5, 19, 0.9);
             color: #ccc;
+            position: relative;
+            z-index: 2;
+            border-top: 1px solid rgba(156, 65, 243, 0.2);
         }
 
-  header.logo {
-        position: relative; /* Set position relative for header */
-        background: rgba(0, 0, 0, 0.5); /* Example background color */
-        padding: 10px 20px;
-        display: flex;
-        justify-content: space-between;
-       align-items: center;
-}
+        /* 3D Hover Effects */
+        .hero-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            transform-style: preserve-3d;
+        }
 
-.header-image {
-    position: absolute;
-    top: 10px; /* Distance from the top */
-    left: 10px; /* Distance from the left */
-    width: 50px; /* Set your preferred size */
-    height: auto;
-    z-index: 10; /* Ensure the image is above other content */
-}
+        /* Floating animation */
+        @keyframes floating {
+            0%, 100% {
+                transform: translateY(0) translateZ(0);
+            }
+            50% {
+                transform: translateY(-20px) translateZ(10px);
+            }
+        }
 
+        /* Pulse effect */
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(156, 65, 243, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(156, 65, 243, 0.8);
+            }
+        }
+
+        /* Advanced glow effect */
+        .glow-effect {
+            position: relative;
+        }
+
+        .glow-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(156, 65, 243, 0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: -1;
+        }
+
+        .glow-effect:hover::after {
+            opacity: 1;
+        }
+
+        /* Advanced background effects */
+        .advanced-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(156, 65, 243, 0.1) 0%, transparent 70%);
+            filter: blur(30px);
+            animation: float 20s infinite linear;
+        }
+
+        /* FAQ Section */
+        #faq {
+            padding: 100px 0;
+            background: linear-gradient(to bottom, rgba(15, 15, 19, 0.9), rgba(10, 5, 19, 0.95));
+            position: relative;
+            overflow: hidden;
+        }
+
+        #faq h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            text-shadow: 0 0 20px var(--glow-purple);
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .faq-item {
+            background: rgba(20, 20, 26, 0.6);
+            padding: 2rem;
+            border-radius: 20px;
+            transition: all 0.5s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(156, 65, 243, 0.2);
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateY(0) rotateX(0) translateZ(0);
+        }
+
+        .faq-item:hover {
+            transform: translateY(-10px) translateZ(20px);
+            box-shadow: 0 20px 40px rgba(156, 65, 243, 0.3);
+            background: rgba(20, 20, 26, 0.8);
+            border: 1px solid rgba(156, 65, 243, 0.4);
+        }
+
+        .faq-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .faq-item p {
+            color: var(--secondary-color);
+            line-height: 1.8;
+        }
+
+        .faq-item a {
+            color: var(--primary-purple);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item a:hover {
+            text-shadow: 0 0 10px var(--glow-purple);
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .scroll-text {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .scroll-arrow {
+            width: 20px;
+            height: 30px;
+            border: 2px solid var(--primary-purple);
+            border-radius: 15px;
+            position: relative;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-arrow::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            width: 6px;
+            height: 6px;
+            background: var(--primary-purple);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            animation: scroll 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes scroll {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, 10px);
+            }
+        }
     </style>
 </head>
 <body>
-    <header>
+    <div class="advanced-bg">
+        <div class="bg-circle" style="width: 800px; height: 800px; top: -200px; left: -200px; animation-duration: 25s;"></div>
+        <div class="bg-circle" style="width: 600px; height: 600px; bottom: -150px; right: -100px; animation-duration: 20s; animation-delay: 5s;"></div>
+        <div class="bg-circle" style="width: 400px; height: 400px; top: 30%; right: 20%; animation-duration: 15s; animation-delay: 2s;"></div>
+    </div>
+
+    <header id="header">
         <div class="container">
             <nav>
                 <div class="logo">
-                  <!--  <img src="https://github.com/getproton/NovaX-V4/blob/main/image-removebg-preview%20(7).png?raw=true" alt="Logo" class="header-image"> -->
-                  Stellar
+                    <i class="fas fa-star"></i> Stellar
                 </div>
                 <ul>
                     <li><a href="#home">Home</a></li>
@@ -467,85 +692,91 @@ nav {
     </header>
     
     <main>
-        <section class="hero">
-            <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
-                <div class="hero-content">
-                    <h1>Revolutionize Your Roblox Experience!</h1>
-                    <p class="subtitle">Discover Stellar - a powerful Level 8 Roblox executor with an impressive 100% stability rate. Featuring a seamless execution capability, along with an extensive ScriptHub powered by ScriptBlox. Experience seamless script execution and unlock endless possibilities with our feature-rich platform - all completely free, no key system required!</p>
-                    <div class="cta-buttons">
-                        <a href="https://raw.githubusercontent.com/getproton/NovaX-V4/main/StellarB.zip" class="cta-button">
-                            <i class="fas fa-download"></i> Get Stellar
-                        </a>
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero-wrapper">
+                    <div class="hero-content">
+                        <h1>Revolutionize Your Roblox Experience!</h1>
+                        <p class="subtitle">Discover Stellar - a powerful Level 8 Roblox executor with an impressive 100% stability rate. Featuring a seamless execution capability, along with an extensive ScriptHub powered by ScriptBlox. Experience seamless script execution and unlock endless possibilities with our feature-rich platform - all completely free, no key system required!</p>
+                        <div class="cta-buttons">
+                            <a href="https://raw.githubusercontent.com/getproton/NovaX-V4/main/StellarB.zip" class="cta-button glow-effect">
+                                <i class="fas fa-download"></i> Get Stellar
+                            </a>
+                        </div>
+                    </div>
+                    <div class="image-container" id="image-container">
+                        <div class="image" id="image">
+                            <img src="https://github.com/getproton/NovaX-V4/blob/main/GithubIM.png?raw=true" alt="Stellar Interface">
+                        </div>
                     </div>
                 </div>
-                <div class="image">
-                    <img src="https://github.com/getproton/NovaX-V4/blob/main/GithubIM.png?raw=true" alt="Proton Interface" style="object-fit: contain;">
-                </div>
+            </div>
+            <div class="scroll-indicator">
+                <span class="scroll-text">Scroll Down</span>
+                <div class="scroll-arrow"></div>
             </div>
         </section>
 
-        <section class="container">
+        <section class="container" id="features">
             <div class="features">
-                <div class="box">
+                <div class="box glow-effect">
                     <span><i class="fas fa-paint-brush"></i></span>
                     <h2>Elegant Interface</h2>
                     <p>Experience our meticulously crafted UI designed for both beginners and experts. Navigate effortlessly through features while enjoying a modern, responsive interface that enhances your exploiting experience.</p>
                 </div>
 
-                <div class="box">
+                <div class="box glow-effect">
                     <span><i class="fas fa-rocket"></i></span>
                     <h2>Powerful Execution</h2>
                     <p>Level 8 execution capabilities with 100% stability rate. Enjoy the seamless 100% UNC success rate, plus access to a vast ScriptHub powered by ScriptBlox for unlimited scripting possibilities.</p>
                 </div>
 
-                <div class="box">
+                <div class="box glow-effect">
                     <span><i class="fas fa-infinity"></i></span>
                     <h2>Always Free</h2>
-                    <p>Access all of Stelalr's powerful features completely free. No hidden costs, no key system - just pure, unrestricted power at your fingertips. Join our community today and experience the difference.</p>
+                    <p>Access all of Stellar's powerful features completely free. No hidden costs, no key system - just pure, unrestricted power at your fingertips. Join our community today and experience the difference.</p>
                 </div>
             </div>
         </section>
 
-        <section id="faq" style="padding: 50px 0; background: rgba(15, 15, 19, 0.9);">
+        <section id="faq">
             <div class="container">
-                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 2rem; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;">
-                    Frequently Asked Questions
-                </h2>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
-                    <div class="box">
-                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: #fff;">What is Stellar?</h3>
-                        <p style="color: var(--secondary-color); font-size: 1rem;">Stellar is a Level 8 Roblox executor designed to provide an easy-to-use, powerful script execution experience with features like Auto-Inject, Manual-Inject, and a ScriptHub powered by ScriptBlox.</p>
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-grid">
+                    <div class="faq-item glow-effect">
+                        <h3>What is Stellar?</h3>
+                        <p>Stellar is a Level 8 Roblox executor designed to provide an easy-to-use, powerful script execution experience with features like Auto-Inject, Manual-Inject, and a ScriptHub powered by ScriptBlox.</p>
                     </div>
-                    <div class="box">
-                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: #fff;">Is Stellar free?</h3>
-                        <p style="color: var(--secondary-color); font-size: 1rem;">Yes! Stellar is completely free to use. There are no hidden costs, and you don’t need a key system to access its features.</p>
+                    <div class="faq-item glow-effect">
+                        <h3>Is Stellar free?</h3>
+                        <p>Yes! Stellar is completely free to use. There are no hidden costs, and you don't need a key system to access its features.</p>
                     </div>
-                    <div class="box">
-                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: #fff;">What is the stability rate of Stellar?</h3>
-                        <p style="color: var(--secondary-color); font-size: 1rem;">Stellar boasts an impressive 100% stability rate, ensuring reliable and consistent script execution for users.</p>
+                    <div class="faq-item glow-effect">
+                        <h3>What is the stability rate of Stellar?</h3>
+                        <p>Stellar boasts an impressive 100% stability rate, ensuring reliable and consistent script execution for users.</p>
                     </div>
-                    <div class="box">
-                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: #fff;">Where can I get Stellar?</h3>
-                        <p style="color: var(--secondary-color); font-size: 1rem;">You can download Stellar from our official page. Just click the "Get Stellar" button above to get started!</p>
+                    <div class="faq-item glow-effect">
+                        <h3>Where can I get Stellar?</h3>
+                        <p>You can download Stellar from our official page. Just click the "Get Stellar" button above to get started!</p>
                     </div>
-                    <div class="box">
-                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: #fff;">Does Stellar support updates?</h3>
-                        <p style="color: var(--secondary-color); font-size: 1rem;">Yes, Stellar is regularly updated to ensure compatibility with the latest Roblox updates and to provide users with new features and improvements.</p>
+                    <div class="faq-item glow-effect">
+                        <h3>Does Stellar support updates?</h3>
+                        <p>Yes, Stellar is regularly updated to ensure compatibility with the latest Roblox updates and to provide users with new features and improvements.</p>
                     </div>
-                    <div class="box">
-                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: #fff;">How can I contact support?</h3>
-                        <p style="color: var(--secondary-color); font-size: 1rem;">Join our <a href="https://discord.gg/NS9dJ76wrW" style="color: var(--primary-color); text-decoration: none;">Discord server</a> to get support, ask questions, or connect with the Stellar community.</p>
+                    <div class="faq-item glow-effect">
+                        <h3>How can I contact support?</h3>
+                        <p>Join our <a href="https://discord.gg/NS9dJ76wrW">Discord server</a> to get support, ask questions, or connect with the Stellar community.</p>
                     </div>
                 </div>
             </div>
         </section>
         
-        
-
         <div class="orbital-particles">
-            <div class="particle" style="top: 20%; left: 10%; width: 8px; height: 8px;"></div>
-            <div class="particle" style="top: 60%; right: 15%; width: 12px; height: 12px;"></div>
-            <div class="particle" style="bottom: 30%; left: 20%; width: 10px; height: 10px;"></div>
+            <div class="particle" style="top: 20%; left: 10%; width: 8px; height: 8px; animation-delay: 0s;"></div>
+            <div class="particle" style="top: 60%; right: 15%; width: 12px; height: 12px; animation-delay: 2s;"></div>
+            <div class="particle" style="bottom: 30%; left: 20%; width: 10px; height: 10px; animation-delay: 4s;"></div>
+            <div class="particle" style="top: 40%; right: 25%; width: 6px; height: 6px; animation-delay: 1s;"></div>
+            <div class="particle" style="bottom: 20%; right: 30%; width: 8px; height: 8px; animation-delay: 3s;"></div>
         </div>
     </main>
 
@@ -554,10 +785,144 @@ nav {
     </footer>
 
     <script>
-            // FAQ Expand/Collapse
-            document.querySelectorAll('.faq-item').forEach(item => {
-            item.addEventListener('click', () => {
-                item.classList.toggle('active');
+        // 3D Hover Effect for Image
+        const imageContainer = document.getElementById('image-container');
+        const image = document.getElementById('image');
+        
+        // Mouse position tracking for 3D effect
+        document.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            
+            // Apply 3D transform to image
+            image.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) translateZ(30px)`;
+            
+            // Apply 3D transform to boxes when hovering
+            const boxes = document.querySelectorAll('.box, .faq-item');
+            boxes.forEach(box => {
+                const boxRect = box.getBoundingClientRect();
+                const boxCenterX = boxRect.left + boxRect.width / 2;
+                const boxCenterY = boxRect.top + boxRect.height / 2;
+                
+                const boxXAxis = (boxCenterX - e.pageX) / 30;
+                const boxYAxis = (boxCenterY - e.pageY) / 30;
+                
+                if (box.matches(':hover')) {
+                    box.style.transform = `perspective(1000px) rotateY(${boxXAxis}deg) rotateX(${-boxYAxis}deg) translateY(-10px) translateZ(20px)`;
+                }
+            });
+        });
+        
+        // Reset transforms when mouse leaves elements
+        function resetTransforms() {
+            image.style.transform = 'rotateY(0) rotateX(0) translateZ(0)';
+            
+            const boxes = document.querySelectorAll('.box, .faq-item');
+            boxes.forEach(box => {
+                if (!box.matches(':hover')) {
+                    box.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) translateZ(0)';
+                }
+            });
+        }
+        
+        // Reset transforms periodically and when mouse leaves
+        setInterval(resetTransforms, 100);
+        imageContainer.addEventListener('mouseleave', resetTransforms);
+        document.querySelectorAll('.box, .faq-item').forEach(el => {
+            el.addEventListener('mouseleave', resetTransforms);
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Floating animation for hero elements
+        const heroContent = document.querySelector('.hero-content');
+        const heroImage = document.querySelector('.image-container');
+        
+        function floatAnimation() {
+            heroContent.style.animation = 'floating 6s ease-in-out infinite';
+            heroImage.style.animation = 'floating 6s ease-in-out infinite 0.5s';
+        }
+        
+        floatAnimation();
+        
+        // Pulse effect for buttons
+        const buttons = document.querySelectorAll('.cta-button, .dashboard-btn');
+        buttons.forEach(button => {
+            button.style.animation = 'pulse 3s infinite';
+        });
+        
+        // Advanced particle system
+        function createParticles() {
+            const particlesContainer = document.querySelector('.orbital-particles');
+            const particleCount = 15;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 10 + 5;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 10;
+                const isBlue = Math.random() > 0.5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.opacity = Math.random() * 0.5 + 0.3;
+                particle.style.background = isBlue 
+                    ? 'linear-gradient(135deg, #0066ff, #0099ff)'
+                    : 'linear-gradient(135deg, #9c41f3, #6200ff)';
+                particle.style.boxShadow = isBlue 
+                    ? '0 0 10px #0066ff'
+                    : '0 0 10px #9c41f3';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        createParticles();
+        
+        // Parallax effect for background circles
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            const bgCircles = document.querySelectorAll('.bg-circle');
+            
+            bgCircles.forEach((circle, index) => {
+                const speed = 0.2 + (index * 0.1);
+                const yPos = scrollPosition * speed;
+                circle.style.transform = `translateY(${yPos}px)`;
             });
         });
     </script>
