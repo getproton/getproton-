@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +20,12 @@
             --deep-blue: #001a33;
             --deep-purple: #1a0033;
         }
+
+                #parallax-img {
+        position: relative;
+        overflow: visible;
+        }
+
 
         * {
             margin: 0;
@@ -664,6 +671,26 @@
                 transform: translate(-50%, 10px);
             }
         }
+
+       .particle {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        opacity: 1;
+        pointer-events: none;
+        z-index: 9999;
+        animation: particle-burst 0.8s ease-out forwards;
+        background-size: cover;
+       }
+
+        @keyframes particle-burst {
+        to {
+            opacity: 0;
+            transform: scale(0.3) translate(0, 0);
+        }
+        }
+
     </style>
 </head>
 <body>
@@ -672,6 +699,8 @@
         <div class="bg-circle" style="width: 600px; height: 600px; bottom: -150px; right: -100px; animation-duration: 20s; animation-delay: 5s;"></div>
         <div class="bg-circle" style="width: 400px; height: 400px; top: 30%; right: 20%; animation-duration: 15s; animation-delay: 2s;"></div>
     </div>
+
+    
 
     <header id="header">
         <div class="container">
@@ -690,33 +719,142 @@
             </nav>
         </div>
     </header>
+
+    <section class="hero" id="intro" style="background: #000; height: 100vh; display: flex; align-items: center; justify-content: center;">
+        <div class="container" style="text-align: center; color: white;">
+      
+          <h2 style="color: #888; font-weight: 400; font-size: 1.2rem; margin-bottom: 10px;">
+            INTRODUCING
+          </h2>
+      
+          <h1 style="font-size: 4rem; font-weight: 900; color: #fff;">
+            STELLAR <span style="color: #00eaff; text-shadow: 0 0 20px #00eaff;">V3</span>
+          </h1>
+      
+          <div id="glitch-box" style="margin-top: 50px; font-family: 'Courier New', monospace; font-size: 1.5rem; text-shadow: 0 0 10px #00eaff;">
+            <span class="glitch-text"></span>
+          </div>
+      
+        </div>
+      </section>
+      
+      <style>
+      .glitch-text {
+        color: #00eaff;
+        letter-spacing: 2px;
+        display: inline-block;
+        min-height: 30px;
+      }
+      
+      @keyframes glitchReveal {
+        0% {
+          opacity: 0;
+          transform: scale(1.05);
+        }
+        10% {
+          content: "▒▒▒▒▒▒▒▒▒▒";
+        }
+        30% {
+          content: "▓▉▒▓▉▒▉▒▓";
+        }
+        50% {
+          content: "▉▓▒▒▒▓▒▉▒";
+        }
+        70% {
+          content: "▒▓▒▒▒▓▒▒";
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      </style>
+      
+      <script>
+      const descriptions = [
+        "Blazing Fast Injection",
+        "Seamless Execution",
+        "Wide Range of Script Support"       
+      ];
+      
+      const glitchText = document.querySelector('.glitch-text');
+      const glitchChars = ['▒', '▓', '▉', '<', '>', '/', '|', '_', '+', '■'];
+      let index = 0;
+      
+      function glitchReveal(text) {
+        let i = 0;
+        const length = text.length;
+        const interval = setInterval(() => {
+          if (i <= length) {
+            const visible = text.substring(0, i);
+            const glitch = Array.from({ length: length - i }, () =>
+              glitchChars[Math.floor(Math.random() * glitchChars.length)]
+            ).join('');
+            glitchText.textContent = visible + glitch;
+            i++;
+          } else {
+            clearInterval(interval);
+          }
+        }, 40);
+      }
+      
+      function cycleText() {
+        glitchReveal(descriptions[index]);
+        index = (index + 1) % descriptions.length;
+      }
+      
+      cycleText();
+      setInterval(cycleText, 7000);
+      </script>
+      
+      
+      
+      
     
     <main>
-        <section class="hero" id="home">
-            <div class="container">
-                <div class="hero-wrapper">
-                    <div class="hero-content">
-                        <h1>Revolutionize Your Roblox Experience!</h1>
-                        <p class="subtitle">Discover Stellar - a powerful Level 8 Roblox executor with an impressive 100% stability rate. Featuring a seamless execution capability, along with an extensive ScriptHub powered by ScriptBlox. Experience seamless script execution and unlock endless possibilities with our feature-rich platform - all completely free, no key system required!</p>
-                        <div class="cta-buttons">
-                            <a href="https://raw.githubusercontent.com/getproton/NovaX-V4/main/StellarB.zip" class="cta-button glow-effect">
-                                <i class="fas fa-download"></i> Get Stellar
-                            </a>
-                        </div>
-                    </div>
-                    <div class="image-container" id="image-container">
-                        <div class="image" id="image">
-                            <img src="https://github.com/getproton/NovaX-V4/blob/main/GithubIM.png?raw=true" alt="Stellar Interface">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="scroll-indicator">
-                <span class="scroll-text">Scroll Down</span>
-                <div class="scroll-arrow"></div>
-            </div>
-        </section>
+        <section class="hero" id="home" style="background: linear-gradient(to bottom right, #020617, #02132a); padding: 5rem 0; color: white;">
+            <div class="container" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 3rem;">
+              
+              <!-- LEFT CONTENT -->
+              <div class="hero-content" style="flex: 1 1 500px;">
+                <h2 style="font-size: 2.5rem; font-weight: 800; line-height: 1.2;">
+                  The #1 scripting <span style="color: #00d0ff;">utility.</span><br>
+                  Join <span style="color: #ffffff;">Now!</span>
+                </h2>
+                <p style="font-size: 1.1rem; margin-top: 1.5rem; color: #d1d5db; line-height: 1.7;">
+                    Discover Stellar - a powerful Level 8 Roblox executor with an impressive 100% stability rate. Featuring a seamless execution capability, along with an extensive ScriptHub powered by ScriptBlox. Experience seamless script execution and unlock endless possibilities with our feature-rich platform - all completely free, no key system required!
 
+
+                </p>
+          
+                <div style="margin-top: 2rem;">
+                  <p style="color: #00d0ff; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-gamepad"></i> Upgrade your experience now!
+                  </p>
+                </div>
+          
+                <div class="cta-buttons" style="margin-top: 1rem; display: flex; gap: 2rem; flex-wrap: wrap;">
+                  <a href="https://raw.githubusercontent.com/getproton/NovaX-V4/main/StellarB.zip"
+                     class="cta-button"
+                     style="background: #00aaff; padding: 0.75rem 2rem; border-radius: 12px; font-weight: bold; color: white; box-shadow: 0 4px 20px rgba(0,0,0,0.3); text-decoration: none;">
+                    Get Stellar Now!
+                  </a>
+                  <a href="#" style="color: #00d0ff; font-weight: 600; text-decoration: none;">
+                    hotspot <span style="margin-left: 0.25rem;">▼</span>
+                  </a>
+                </div>
+              </div>
+          
+              <!-- RIGHT IMAGE -->
+              <div class="image-container" style="flex: 1 1 400px; text-align: center;">
+                <img src="https://cdn.discordapp.com/attachments/1306585032474755125/1359758145530101791/image.png?ex=67f8a4f4&is=67f75374&hm=38a8db883527033cae8e5562314683fc750bc353e8d98d472dfc24096080c9db&"
+                     alt="Stellar Interface"
+                     style="max-width: 100%; border-radius: 12px; box-shadow: 0 0 40px rgba(0, 160, 255, 0.2);">
+              </div>
+          
+            </div>
+          </section>
+          
         <section class="container" id="features">
             <div class="features">
                 <div class="box glow-effect">
@@ -924,6 +1062,57 @@
                 const yPos = scrollPosition * speed;
                 circle.style.transform = `translateY(${yPos}px)`;
             });
+        });
+
+        const parallax = document.getElementById("parallax-img");
+
+        parallax.addEventListener("mousemove", (e) => {
+        const rect = parallax.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        const rotateX = (-y / 30).toFixed(2);
+        const rotateY = (x / 30).toFixed(2);
+
+        parallax.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        parallax.addEventListener("mouseleave", () => {
+        parallax.style.transform = "rotateX(0deg) rotateY(0deg)";
+        });
+
+
+
+
+
+                document.addEventListener("click", (e) => {
+            const originX = e.clientX;
+            const originY = e.clientY;
+            
+            for (let i = 0; i < 20; i++) {
+            const particle = document.createElement("div");
+            particle.classList.add("particle");
+            
+            const angle = Math.random() * 2 * Math.PI;
+            const distance = 50 + Math.random() * 50;
+            const x = Math.cos(angle) * distance;
+            const y = Math.sin(angle) * distance;
+            
+            particle.style.left = `${originX}px`;
+            particle.style.top = `${originY}px`;
+
+            // Blue to purple gradient
+            const hue1 = 230 + Math.random() * 10; // Blue-ish
+            const hue2 = 280 + Math.random() * 10; // Purple-ish
+            particle.style.background = `radial-gradient(circle, hsl(${hue1}, 100%, 65%) 0%, hsl(${hue2}, 100%, 60%) 100%)`;
+
+            particle.style.transform = `translate(${x}px, ${y}px)`;
+            
+            document.body.appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 800);
+            }
         });
     </script>
 </body>
