@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +28,7 @@
         overflow: visible;
         }
 
-
+        
         * {
             margin: 0;
             padding: 0;
@@ -692,6 +693,82 @@
         }
         }
 
+         /* Custom Cursor */
+  .custom-cursor {
+    position: fixed;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(156, 65, 243, 0.3);
+    border: 2px solid #9c41f3;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: screen;
+    transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
+  }
+  .custom-cursor-follower {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #9c41f3;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.4s ease, width 0.3s ease, height 0.3s ease;
+  }
+  .custom-cursor.active { width: 40px; height: 40px; background: rgba(156, 65, 243, 0.1); }
+  
+  /* Context Menu */
+  .custom-context-menu {
+    position: fixed;
+    width: 220px;
+    background: rgba(15, 15, 19, 0.98);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5), 0 0 0 1px rgba(156,65,243,0.3);
+    padding: 8px 0;
+    z-index: 10000;
+    opacity: 0;
+    transform: scale(0.9) translateY(10px);
+    pointer-events: none;
+    transition: all 0.15s cubic-bezier(0.23,1,0.32,1);
+    border: 1px solid rgba(255,255,255,0.05);
+    font-family: 'Poppins', sans-serif;
+  }
+  .custom-context-menu.active { opacity: 1; transform: scale(1) translateY(0); pointer-events: all; }
+  .context-menu-header {
+    padding: 10px 15px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #9c41f3;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(156,65,243,0.2);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .context-menu-item {
+    padding: 10px 15px;
+    color: #e0e0e0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+  }
+  .context-menu-item:hover { background: rgba(156,65,243,0.15); color: #fff; }
+  .context-menu-item i { width: 20px; text-align: center; color: #9c41f3; font-size: 12px; }
+  .context-menu-divider { height: 1px; background: rgba(156,65,243,0.1); margin: 5px 0; }
+  body { cursor: none; }
+  a, button, .cta-button, .box, .dashboard-btn, .context-menu-item { cursor: none !important; }
+
     </style>
 </head>
 <body>
@@ -954,7 +1031,7 @@
                     <div class="price" style="font-size: 3rem; font-weight: 700; margin-bottom: 1rem; background: linear-gradient(135deg, #9c41f3, #6200ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                         $3.50 AUD<span style="font-size: 1rem; color: var(--secondary-color);">/month</span>
                     </div>
-                    <p style="color: var(--secondary-color); margin-bottom: 1.5rem;">For users looking for stability.</p>
+                    <p style="color: var(--secondary-color); margin-bottom: 1.5rem;">For power users and developers</p>
                 </div>
                 <ul class="features-list" style="list-style: none; margin-bottom: 2rem; text-align: left;">
                     <li style="padding: 0.5rem 0; color: var(--secondary-color); display: flex; align-items: center; gap: 0.5rem;">
@@ -968,12 +1045,6 @@
                     </li>
                     <li style="padding: 0.5rem 0; color: var(--secondary-color); display: flex; align-items: center; gap: 0.5rem;">
                         <i class="fas fa-check" style="color: var(--primary-purple);"></i> Beta Tester Access
-                    </li>
-                          <li style="padding: 0.5rem 0; color: var(--secondary-color); display: flex; align-items: center; gap: 0.5rem;">
-                        <i class="fas fa-check" style="color: var(--primary-purple);"></i> Advanced TP handler
-                    </li>
-                          <li style="padding: 0.5rem 0; color: var(--secondary-color); display: flex; align-items: center; gap: 0.5rem;">
-                        <i class="fas fa-check" style="color: var(--primary-purple);"></i> Enhanced stability.
                     </li>
                 </ul>
                 <a href="404.html" class="pricing-btn" style="display: inline-block; background: var(--gradient-2); color: #fff; padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 0 20px var(--glow-purple);">
@@ -992,11 +1063,218 @@
         </div>
     </main>
 
-    <footer class="footer">
-        <p>&copy; 2025 Stellar Executor. All Rights Reserved.</p>
-    </footer>
+ <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">
+                    <i class="fas fa-star"></i> Stellar
+                </div>
+                <p class="footer-description">The most powerful free Roblox executor with Level 8 capabilities and 100% stability.</p>
+            </div>
+            
+            <div class="footer-links">
+                <div class="links-column">
+                    <h3 class="links-title">Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="tos.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div class="links-column">
+                    <h3 class="links-title">Legal</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-cta">
+                <a href="https://discord.gg/NS9dJ76wrW" class="discord-btn">
+                    <i class="fab fa-discord"></i> Join Our Discord
+                </a>
+                <div class="dmca-badge">
+                    <a href="dmca.html">
+                        <img src="https://images.dmca.com/Badges/dmca_protected_sml_120n.png" alt="DMCA Protected">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Stellar Executor. All Rights Reserved.</p>
+            <p>Not affiliated with Roblox Corporation.</p>
+        </div>
+    </div>
+</footer>
+
+
+<style>
+    
+.footer {
+    background: rgba(10, 5, 19, 0.95);
+    border-top: 1px solid rgba(156, 65, 243, 0.2);
+    color: var(--secondary-color);
+    padding: 60px 0 30px;
+    position: relative;
+    z-index: 2;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-brand {
+    flex: 1 1 300px;
+}
+
+.footer-brand .logo {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+}
+
+.footer-description {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    opacity: 0.8;
+}
+
+.footer-links {
+    flex: 2 1 400px;
+    display: flex;
+    gap: 40px;
+}
+
+.links-column {
+    flex: 1;
+}
+
+.links-title {
+    color: #fff;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.footer-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--gradient-1);
+    transition: width 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #fff;
+}
+
+.footer-links a:hover::after {
+    width: 100%;
+}
+
+.footer-cta {
+    flex: 1 1 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+.discord-btn {
+    background: var(--gradient-1);
+    color: #fff !important;
+    padding: 12px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px var(--glow-blue);
+}
+
+.discord-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px var(--glow-purple);
+}
+
+.dmca-badge img {
+    height: 30px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.dmca-badge:hover img {
+    transform: scale(1.05);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(156, 65, 243, 0.1);
+    padding-top: 20px;
+    text-align: center;
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.footer-bottom p {
+    margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+    }
+    
+    .footer-cta {
+        align-items: center;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 30px;
+    }
+}
+</style>
 
     <script>
+        
+        
+        
         // 3D Hover Effect for Image
         const imageContainer = document.getElementById('image-container');
         const image = document.getElementById('image');
@@ -1188,6 +1466,10 @@
             }, 800);
             }
         });
+
+    
     </script>
+
+
 </body>
 </html>
